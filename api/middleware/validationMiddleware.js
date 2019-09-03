@@ -2,7 +2,7 @@ import joi from 'joi';
 
 const validationMiddleware = (req, res, next) => {
   const { url, body } = req;
-  if (url === '/api/v1/meals') {
+  if (url === '/api/v1/meals' && req.route.methods.post) {
     const schema = joi.object().keys({
       meal_name: joi.string().required(),
       user_id: joi.number().integer().required(),
@@ -21,6 +21,20 @@ const validationMiddleware = (req, res, next) => {
         next();
       }
     });
+  } else if (req.route.methods.delete) {
+    const { id } = req.params;
+    // eslint-disable-next-line radix
+    const val = parseInt(id);
+    // eslint-disable-next-line no-restricted-globals
+    if (!isNaN(val)) {
+      next();
+    } else {
+      const message = 'Parameter (id) should be an integer.';
+      res.status(400).json({
+        status: 'Vaidation error',
+        message,
+      });
+    }
   }
 };
 
