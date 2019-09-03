@@ -11,6 +11,19 @@ class MealsController {
       meals,
     });
   }
+
+  async createMeals(req, res) {
+    // const allMealsResponse = await DbHelper.getAllMeals();
+    // const { success, message, meals } = allMealsResponse;
+    const { mealObj } = req.body;
+    const createdMealsResponse = await DbHelper.createMeals(mealObj);
+    const { success, message, meal } = createdMealsResponse;
+    res.status(200).send({
+      success,
+      message,
+      meal,
+    });
+  }
 }
 
 const mealsController = new MealsController();
