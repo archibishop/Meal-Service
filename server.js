@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import router from './api/routes/mealsRoutes';
 
 // Server
 const app = express();
@@ -11,12 +12,7 @@ const PORT = process.env.Port || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/api/v1/', (req, res) => {
-  res.status(200).send({
-    message: 'Api Successfully running',
-    status: true,
-  });
-});
+app.use(router);
 
 module.exports = app.listen(PORT, () => {
   // eslint-disable-next-line no-console
