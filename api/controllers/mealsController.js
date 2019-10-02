@@ -3,6 +3,7 @@ import DbHelper from '../helpers/dbHelper';
 
 class MealsController {
   async getMeals(req, res) {
+    console.log(req.route.methods.get);
     const allMealsResponse = await DbHelper.getAllMeals();
     const { success, message, meals } = allMealsResponse;
     res.status(200).send({
@@ -22,6 +23,16 @@ class MealsController {
       success,
       message,
       meal,
+    });
+  }
+
+  async deleteMeal(req, res) {
+    const { id } = req.params;
+    const deleteMealResponse = await DbHelper.deleteMeal(id);
+    const { success, message } = deleteMealResponse;
+    res.status(200).send({
+      success,
+      message,
     });
   }
 }

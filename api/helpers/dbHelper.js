@@ -20,6 +20,20 @@ class DBhelper {
       return { message: 'An error has occured.', success: false };
     }
   }
+
+  async deleteMeal(id) {
+    try {
+      const response = await models.Meals.destroy(
+        { where: { id } },
+      );
+      if (response === 1) {
+        return { message: 'This meal has been successfuly removed from the system.', success: true };
+      }
+      return { message: 'The item  was not found in the system.', success: false };
+    } catch (exception) {
+      return { message: 'An error has occured.', success: false };
+    }
+  }
 }
 
 const dbhelper = new DBhelper();
