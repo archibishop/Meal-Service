@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/nodemon server.js --exec babel-node --"
+    "start": "node_modules/.bin/nodemon server.js --exec babel-node --",
+    "migrate": "node_modules/.bin/sequelize db:migrate"
   },
   "author": "Wagubi Brian",
   "license": "ISC",
@@ -13,8 +14,13 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
-    "nodemon": "^1.19.2"
+    "nodemon": "^1.19.2",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.18.1",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "eslint": "^6.3.0",
