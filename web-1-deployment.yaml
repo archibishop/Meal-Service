@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    apiRoute: /api/v1/meals
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.19.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web-1
+  name: web-1
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        apiRoute: /api/v1/meals
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.19.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web-1
+    spec:
+      containers:
+      - env:
+        - name: APP_SETTINGS
+          value: production
+        - name: DATABASE_URL
+          value: postgres://postgres:postgres@database/meal_db
+        - name: NODE_ENV
+          value: docker
+        - name: REDIS_URL
+          value: redis://cache_1
+        image: wagubib/microservice:meals
+        name: meal-service
+        ports:
+        - containerPort: 3000
+        resources: {}
+      restartPolicy: Always
+status: {}
