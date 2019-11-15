@@ -33,7 +33,8 @@ spec:
           value: docker
         - name: REDIS_URL
           value: redis://cache_1
-        image: wagubib/microservice:meals
+        image: gcr.io/summer-hawk-258307/meals
+        # image: wagubib/microservice:meals
         name: meal-service
         ports:
         - containerPort: 3000
