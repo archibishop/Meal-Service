@@ -20,7 +20,7 @@
     "username": "postgres",
     "password": "12345",
     "database": "meals_db",
-    "host": "db",
+    "host": "database",
     "dialect": "postgres",
     "operatorsAliases": false,
     "logging": false

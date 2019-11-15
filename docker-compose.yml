@@ -1,16 +1,19 @@
 version: '3.7'
 
 services:
-  db:
+  database:
+    container_name: database
     image: postgres
     networks:
       - auth-service_default
-  web:
+  web_1:
     build:
       context: .
     labels:
       apiRoute: '/api/v1/meals'
     container_name: meal-service
+    # image: gcr.io/summer-hawk-258307/meals
+    image: wagubib/microservice:meals
     volumes:
       - .:/usr/src/app
     ports:
@@ -18,14 +21,14 @@ services:
     networks:
       - auth-service_default
     depends_on:
-      - db
-      - redis
+      - database
+      - redis_1
     environment:
       APP_SETTINGS: "production"
-      DATABASE_URL: "postgres://postgres:postgres@db/meal_db"
+      DATABASE_URL: "postgres://postgres:postgres@database/meal_db"
       REDIS_URL: redis://cache_1
       NODE_ENV: "docker"
-  redis:
+  redis_1:
     image: 'redis:3.2.0'
     container_name: cache_1
     expose:
